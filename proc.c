@@ -303,6 +303,7 @@ wait(int *status)
         {
           *status = p->status;
         }
+        p->status = 0;
         return pid;
       }
     }
@@ -310,10 +311,6 @@ wait(int *status)
     // No point waiting if we don't have any children.
     if(!havekids || curproc->killed){
       release(&ptable.lock);
-      if(status)
-      {
-        *status = -1;
-      }
       return -1;
     }
 
